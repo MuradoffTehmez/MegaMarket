@@ -7,4 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SupermarketApp.Entities\SupermarketApp.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

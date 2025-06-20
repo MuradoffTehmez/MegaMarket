@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SupermarketApp.Business\SupermarketApp.Business.csproj" />
+    <ProjectReference Include="..\SupermarketApp.DataAccess\SupermarketApp.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
