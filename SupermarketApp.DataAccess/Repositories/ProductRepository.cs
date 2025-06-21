@@ -4,6 +4,7 @@ using SupermarketApp.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SupermarketApp.DataAccess;
 
 namespace SupermarketApp.DataAccess.Repositories
 {
