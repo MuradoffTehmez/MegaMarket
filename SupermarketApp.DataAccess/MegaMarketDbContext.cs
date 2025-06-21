@@ -12,48 +12,121 @@ namespace SupermarketApp.DataAccess
     /// </remarks>
     public class MegaMarketDbContext : DbContext
     {
-        // NOTE: Hər bir DbSet xassəsi verilənlər bazasındakı bir cədvələ uyğundur.
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Barcode> Barcodes { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<StockTransfer> StockTransfers { get; set; }
-        public DbSet<Sale> Sales { get; set; }
-        public DbSet<SaleDetail> SaleDetails { get; set; }
-        public DbSet<Purchase> Purchases { get; set; }
-        public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
-        public DbSet<Promotion> Promotions { get; set; }
-        public DbSet<ProductPromotion> ProductPromotions { get; set; }
-        public DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public DbSet<Log> Logs { get; set; }
+        /// <summary>
+        /// DbContext-in konfiqurasiya seçimlərini qəbul edən əsas konstruktor.
+        /// </summary>
+        /// <param name="options">DbContext üçün konfiqurasiya seçimləri.</param>
+        /// <remarks>
+        /// Bu konstruktor, Dependency Injection və IDesignTimeDbContextFactory ilə işləmək üçün vacibdir.
+        /// </remarks>
+        public MegaMarketDbContext(DbContextOptions<MegaMarketDbContext> options) : base(options)
+        {
+        }
+
+        // NOTE: OnConfiguring metodu məqsədli şəkildə silinmişdir.
+        // Bütün konfiqurasiya (bağlantı sətri və s.) artıq xaricdən,
+        // DbContextOptions vasitəsilə bu sinifə ötürülür.
+
+        #region DbSets - Verilənlər Bazası Cədvəlləri
 
         /// <summary>
-        /// Verilənlər bazası bağlantısını və provayderini konfiqurasiya edir.
+        /// İstifadəçilər cədvəli.
         /// </summary>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                // NOTE: Bu bağlantı sətri (connection string) yalnız lokal inkişaf (development) üçündür.
-                // Miqrasiya fayllarının harada axtarılacağını da burada göstəririk.
-                optionsBuilder.UseSqlServer(
-                    "Server=(localdb)\\mssqllocaldb;Database=MegaMarketDb;Trusted_Connection=True;TrustServerCertificate=True;",
-                    b => b.MigrationsAssembly("SupermarketApp.Migrations")
-                );
-            }
-        }
+        public DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// Rollar cədvəli.
+        /// </summary>
+        public DbSet<Role> Roles { get; set; }
+
+        /// <summary>
+        /// Müştərilər cədvəli.
+        /// </summary>
+        public DbSet<Customer> Customers { get; set; }
+
+        /// <summary>
+        /// Məhsullar cədvəli.
+        /// </summary>
+        public DbSet<Product> Products { get; set; }
+
+        /// <summary>
+        /// Barkodlar cədvəli.
+        /// </summary>
+        public DbSet<Barcode> Barcodes { get; set; }
+
+        /// <summary>
+        /// Kateqoriyalar cədvəli.
+        /// </summary>
+        public DbSet<Category> Categories { get; set; }
+
+        /// <summary>
+        /// Təchizatçılar cədvəli.
+        /// </summary>
+        public DbSet<Supplier> Suppliers { get; set; }
+
+        /// <summary>
+        /// Anbarlar/Filiallar cədvəli.
+        /// </summary>
+        public DbSet<Warehouse> Warehouses { get; set; }
+
+        /// <summary>
+        /// Anbar qalığı (stok) cədvəli.
+        /// </summary>
+        public DbSet<Stock> Stocks { get; set; }
+
+        /// <summary>
+        /// Anbarlar arası köçürmələr cədvəli.
+        /// </summary>
+        public DbSet<StockTransfer> StockTransfers { get; set; }
+
+        /// <summary>
+        /// Satışlar cədvəli.
+        /// </summary>
+        public DbSet<Sale> Sales { get; set; }
+
+        /// <summary>
+        /// Satış detalları cədvəli.
+        /// </summary>
+        public DbSet<SaleDetail> SaleDetails { get; set; }
+
+        /// <summary>
+        /// Alışlar cədvəli.
+        /// </summary>
+        public DbSet<Purchase> Purchases { get; set; }
+
+        /// <summary>
+        /// Alış detalları cədvəli.
+        /// </summary>
+        public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
+
+        /// <summary>
+        /// Kampaniyalar cədvəli.
+        /// </summary>
+        public DbSet<Promotion> Promotions { get; set; }
+
+        /// <summary>
+        /// Məhsul-Kampaniya əlaqə cədvəli.
+        /// </summary>
+        public DbSet<ProductPromotion> ProductPromotions { get; set; }
+
+        /// <summary>
+        /// Ödəniş metodları cədvəli.
+        /// </summary>
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+
+        /// <summary>
+        /// Sistem logları cədvəli.
+        /// </summary>
+        public DbSet<Log> Logs { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Varlıq modellərini və onların əlaqələrini Fluent API vasitəsilə daha detallı konfiqurasiya edir.
         /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // NOTE: Bu metod, Data Annotations ilə edilə bilməyən mürəkkəb ayarları tətbiq etmək üçündür.
+            base.OnModelCreating(modelBuilder);
 
             // --- Unikal Açar Təyinləmələri ---
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
