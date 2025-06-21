@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 namespace SupermarketApp.Core.Interfaces
 {
     /// <summary>
-    /// Bütün repository-ləri bir araya gətirən və data əməliyyatlarını tək bir tranzaksiya
-    /// kimi idarə edən Unit of Work interfeysi.
+    /// Bütün repository-ləri bir araya gətirən və data əməliyyatlarını tək bir tranzaksiya kimi idarə edən Unit of Work interfeysi.
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
